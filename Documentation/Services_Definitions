@@ -1,0 +1,230 @@
+IMAGE PROCESSING
+________________________________________________________________________________
+________________________________________________________________________________
+
+service name:       "team_color"
+provided by:        run_RectangleDetection
+description:        returns team color
+                    color codes: '0' -> blue, '1' -> yellow
+
+TeamColor.srv
+________________
+
+---
+bool teamColor
+________________
+
+
+
+
+NAV_LOCAL
+________________________________________________________________________________
+________________________________________________________________________________
+
+service name:       "catch_puck_start"
+provided by:        run_nav_local
+description:        calls function to catch a puck
+
+CatchStart.srv
+________________
+
+---
+
+________________
+
+
+
+
+service name:       "catch_puck_stop"
+provided by:        run_nav_local
+description:        stops movement of the robot
+                    returns '1' when the robot has stopped moving
+                    
+CatchStop.srv
+________________
+
+---
+bool stopped
+________________
+
+
+
+
+service name:       "catch_puck_status"
+provided by:        run_nav_local
+description:        returns '0' if the puck hasn't been caught yet
+                    returns '1' if the puck has been caught successfully
+                    
+CatchStatus.srv
+________________
+
+---
+bool success
+________________
+
+
+
+
+service name:       "check_puck"
+provided by:        run_nav_local
+description:        returns '1' if the color of the puck in front of the robot is teamColor
+                    returns '0' otherwise
+                    color codes: '0' -> blue, '1' -> yellow
+
+CheckPuck.srv
+________________
+bool teamColor
+---
+bool isTeamColor
+________________
+
+
+
+
+service name:       "drop_puck_start"
+provided by:        run_nav_local
+description:        if ownPuck is '0': calls function to drop opponent's puck
+                    if ownPuck is '1': calls function to drop our own puck
+
+DropStart.srv
+________________
+bool ownPuck
+---
+
+________________
+
+
+
+
+service name:       "drop_puck_stop"
+provided by:        run_nav_local
+description:        stops movement of the robot
+                    returns '1' when the robot has stopped moving
+
+DropStop.srv
+________________
+
+---
+bool stopped
+________________
+
+
+
+
+service name:       "drop_puck_status"
+provided by:        run_nav_local
+description:        returns '0' if the puck has not been dropped yet
+                    returns '1' if the puck has been dropped successfully
+
+DropStatus.srv
+________________
+
+---
+bool success
+________________
+
+
+
+
+NAV_GLOBAL
+________________________________________________________________________________
+________________________________________________________________________________
+
+service name:       "find_Puck_Start"
+provided by:        puck_finder_node
+description:        calls function to find the next puck with color teamColor 
+                    color codes: '0' -> blue, '1' -> yellow
+
+PuckFinderStart.srv 
+________________
+bool teamColor
+---
+
+________________
+
+
+
+
+service name:       "find_Puck_Stop"
+provided by:        puck_finder_node
+description:        stops movement of the robot
+                    returns '1' when the robot has stopped moving
+
+PuckFinderStop.srv 
+________________
+
+---
+bool stopped
+________________
+
+
+
+
+service name:       "find_Puck_Status"
+provided by:        puck_finder_node
+description:        returns {-1,-1,-1} as geometry_msgs/Point if no puck has been found yet
+                    returns the position of the found puck as geometry_msgs/Point
+
+PuckFinderStatus.srv 
+________________
+
+---
+geometry_msgs/Point puckPosition
+________________
+
+
+
+
+service name:       "move_To_Puck_Start"
+provided by:        puck_mover_node
+description:        calls function to navigate the robot to the point specified by puckPosition
+
+PuckMoverStart.srv  
+________________
+geometry_msgs/Point puckPosition
+---
+
+________________
+
+
+
+
+service name:       "move_To_Puck_Stop" 
+provided by:        puck_mover_node
+description:        stops movement of the robot
+                    returns '1' when the robot has stopped moving
+
+PuckMoverStop.srv
+________________
+
+---
+bool stopped
+________________
+
+
+
+
+service name:       "move_To_Puck_Status" 
+provided by:        puck_mover_node
+description:        returns '0' if the robot hasn't arrived at the puck yet
+                    returns '1' if the robot has arrived at the puck
+
+PuckMoverStatus.srv
+________________
+
+---
+bool reachedPuck
+________________
+
+
+
+
+
+
+
+
+
+
+
+
+

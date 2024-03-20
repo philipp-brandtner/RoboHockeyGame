@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns:ct="http://www.abisource.com/changetracking.dtd" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:math="http://www.w3.org/1998/Math/MathML" xid-max="51" xmlns:dc="http://purl.org/dc/elements/1.1/" fileformat="1.1" xmlns:svg="http://www.w3.org/2000/svg" xmlns:awml="http://www.abisource.com/awml.dtd" xmlns="http://www.abisource.com/awml.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" version="3.0.0" xml:space="preserve" props="dom-dir:ltr; document-footnote-restart-section:0; document-endnote-type:numeric; document-endnote-place-enddoc:1; document-endnote-initial:1; lang:en-US; document-endnote-restart-section:0; document-footnote-restart-page:0; document-footnote-type:numeric; document-footnote-initial:1; document-endnote-place-endsection:0">
+<!-- ======================================================================== -->
+<!-- This file is an AbiWord document.                                        -->
+<!-- AbiWord is a free, Open Source word processor.                           -->
+<!-- More information about AbiWord is available at http://www.abisource.com/ -->
+<!-- You should not edit this file by hand.                                   -->
+<!-- ======================================================================== -->
+
+<metadata>
+<m key="abiword.date_last_changed">Wed Jan 18 18:19:46 2017
+</m>
+<m key="abiword.generator">AbiWord</m>
+<m key="dc.date">2017-01-18T17:22:24.019222523</m>
+<m key="dc.format">application/x-abiword</m>
+<m key="meta:editing-cycles">1</m>
+<m key="meta:editing-duration">PT5M10S</m>
+</metadata>
+<rdf>
+<t  s="styles.xml"  p="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"  objecttype="1"  xsdtype=""  >http://docs.oasis-open.org/ns/office/1.2/meta/odf#StylesFile</t>
+<t  s="content.xml"  p="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"  objecttype="1"  xsdtype=""  >http://docs.oasis-open.org/ns/office/1.2/meta/odf#ContentFile</t>
+<t  s="manifest.rdf"  p="http://docs.oasis-open.org/ns/office/1.2/meta/pkg#hasPart"  objecttype="1"  xsdtype=""  >styles.xml</t>
+<t  s="manifest.rdf"  p="http://docs.oasis-open.org/ns/office/1.2/meta/pkg#hasPart"  objecttype="1"  xsdtype=""  >content.xml</t>
+<t  s="manifest.rdf"  p="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"  objecttype="1"  xsdtype=""  >http://docs.oasis-open.org/ns/office/1.2/meta/pkg#Document</t>
+</rdf>
+<history version="1" edit-time="33" last-saved="1484759986" uid="3b7c29d4-dda2-11e6-904e-89c0d3a50f14">
+<version id="1" started="1484759986" uid="4f300b94-dda2-11e6-904e-89c0d3a50f14" auto="0" top-xid="0"/>
+</history>
+<styles>
+<s type="P" name="Normal" props="widows:2; font-size:12pt; dom-dir:ltr; lang:en-US; default-tab-interval:0.4925in; orphans:2; font-family:Liberation Serif"/>
+<s type="P" name="Caption" basedon="Normal" followedby="Caption" props="margin-top:0.0835in; font-size:12pt; margin-bottom:0.0835in; font-style:italic"/>
+<s type="P" name="Heading" basedon="Normal" followedby="Text body" props="margin-top:0.1665in; keep-with-next:yes; margin-bottom:0.0835in; font-family:Liberation Sans; font-size:14pt"/>
+<s type="P" name="Text body" basedon="Normal" followedby="Text body" props="margin-top:0in; line-height:1.200000; margin-bottom:0.0972in"/>
+</styles>
+<pagesize pagetype="A4" orientation="portrait" width="210.000000" height="297.000000" units="mm" page-scale="1.000000"/>
+<section xid="1" props="page-margin-right:0.7874in; page-width:8.2681in; page-margin-left:0.7874in; page-orientation:portrait; page-margin-bottom:0.7874in; page-margin-top:0.7874in; page-height:11.6929in">
+<p style="Normal" xid="2" props="font-weight:bold">ImageProcessing Services:</p>
+<p style="Normal" xid="3" props="font-weight:bold"><c></c></p>
+<p style="Normal" xid="4">→ PuckDetectionBlue.srv</p>
+<p style="Normal" xid="5">	bool OnOff</p>
+<p style="Normal" xid="6">	---</p>
+<p style="Normal" xid="7">	</p>
+<p style="Normal" xid="8">→ PuckDetectionYellow.srv</p>
+<p style="Normal" xid="9">	bool OnOff</p>
+<p style="Normal" xid="10">	---</p>
+<p style="Normal" xid="11"><c></c></p>
+<p style="Normal" xid="12">→ RectangleDetection.srv (läuft dauernd da nicht auf Pointcloud oder Lidar subscribed wird)</p>
+<p style="Normal" xid="13">	---</p>
+<p style="Normal" xid="14">	bool TeamColor</p>
+<p style="Normal" xid="15"><c></c></p>
+<p style="Normal" xid="16">→ PoleDetection.srv</p>
+<p style="Normal" xid="17">	bool OnOff</p>
+<p style="Normal" xid="18">	---</p>
+<p style="Normal" xid="19"><c></c></p>
+<p style="Normal" xid="20" props="font-weight:bold">Nav_Global:</p>
+<p style="Normal" xid="21" props="font-weight:bold"><c></c></p>
+<p style="Normal" xid="22" props="font-weight:bold">Nav_Local:</p>
+<p style="Normal" xid="23" props="font-weight:bold"><c></c></p>
+<p style="Normal" xid="24" props="font-weight:bold">Map:</p>
+<p style="Normal" xid="25"><c></c></p>
+<p style="Normal" xid="26" props="font-size:18pt">SPIELABLAUF</p>
+<p style="Normal" xid="27"><c></c></p>
+<p style="Normal" xid="28" props="font-weight:bold">Spielbeginn:</p>
+<p style="Normal" xid="29">	Alle Knoten über Launchfile starten.</p>
+<p style="Normal" xid="30"><c></c></p>
+<p style="Normal" xid="31" props="font-weight:bold">Erste 45 Sek:</p>
+<p style="Normal" xid="32">	Beginn:</p>
+<p style="Normal" xid="33">		PoleDetection aktivieren</p>
+<p style="Normal" xid="34">		RectangleDetection aktivieren</p>
+<p style="Normal" xid="35">		Map aktivieren</p>
+<p style="Normal" xid="36"><c></c></p>
+<p style="Normal" xid="37">	Ende:</p>
+<p style="Normal" xid="38">		PoleDetection deaktivieren</p>
+<p style="Normal" xid="39">		RectangleDetection deaktivieren (Farbe zurück bekommen)</p>
+<p style="Normal" xid="40">		?? Map unsubscriben ??</p>
+<p style="Normal" xid="41"><c></c></p>
+<p style="Normal" xid="42" props="font-weight:bold">Weiterer Spielablauf:</p>
+<p style="Normal" xid="43" props="font-weight:bold">	<c props="font-weight:normal">→ Farbabhängig PuckDetection einschalten</c></p>
+<p style="Normal" xid="44" props="font-weight:bold"><c props="font-weight:normal">	→ Finde Puck aktivieren</c></p>
+<p style="Normal" xid="45" props="font-weight:bold"><c props="font-weight:normal">	→ PuckDetection abschalten</c></p>
+<p style="Normal" xid="46" props="font-weight:bold"><c props="font-weight:normal">	→ MovetoPuck aktivieren</c></p>
+<p style="Normal" xid="47" props="font-weight:bold"><c props="font-weight:normal">	….</c></p>
+<p style="Normal" xid="48" props="font-weight:bold"><c props="font-weight:normal">	→ Drop Puck</c></p>
+<p style="Normal" xid="49" props="font-weight:bold"><c></c></p>
+<p style="Normal" xid="50" props="font-weight:bold"><c props="font-weight:normal">… Bis 3 Pucks im Tor</c></p>
+<p style="Normal" xid="51"></p>
+</section>
+</abiword>

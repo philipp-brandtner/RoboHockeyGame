@@ -1,0 +1,8 @@
+Puck.msg
+	-uint8 count: Anzahl der erkannten Pucks
+	-geometry_msgs/Point puck_1: X,Y,Z Position des ersten Pucks [m]
+	-geometry_msgs/Point puck_2: X,Y,Z Position des zweiten Pucks [m]
+	-geometry_msgs/Point puck_3: X,Y,Z Position des dritten Pucks [m]
+	-float64 dist_12: Distanz des ersten und zweiten Pucks [m]
+	-float64 dist_13: Distanz des ersten und dritten Pucks [m]
+	-float64 dist_23: Distanz des zweiten und dritten Pucks [m]

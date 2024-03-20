@@ -1,0 +1,127 @@
+<!-- 
+  Turtlebot is a bit low on horsepower...
+
+  We use openni_camera here, turn everything on by default
+  (allows the user to conveniently see everything when
+  launching this on its own - use with 
+  turtebot_rviz_launchers/view_robot.launch to visualise)
+  and provide args to disable them so you can optimise the
+  horsepower for your application.
+  
+  For an example of disabling processing modules, check
+  any of the turtlebot_rapps (e.g. android_make_a_map.launch
+  only enables scan_processing for depthimage_to_laserscan and
+  rgb_processing for the android tele-view).
+-->
+<launch>
+  <!-- "camera" should uniquely identify the device. All topics are pushed down
+       into the "camera" namespace, and it is prepended to tf frame ids. -->
+  <arg name="camera"      default="camera"/>
+  <arg name="publish_tf"  default="false"/>
+  <arg name="3d_sensor"   default="$(env TURTLEBOT_3D_SENSOR)"/>  <!-- kinect, asus_xtion_pro -->
+
+  <!-- Factory-calibrated depth registration -->
+  <arg name="depth_registration"              default="true"/>
+  <arg     if="$(arg depth_registration)" name="depth" value="depth_registered" />
+  <arg unless="$(arg depth_registration)" name="depth" value="depth" />
+
+  <!-- Processing Modules -->
+  <arg name="rgb_processing"                  default="true"/>
+  <arg name="ir_processing"                   default="true"/>
+  <arg name="depth_processing"                default="true"/>
+  <arg name="depth_registered_processing"     default="true"/>
+  <arg name="disparity_processing"            default="true"/>
+  <arg name="disparity_registered_processing" default="true"/>
+  <arg name="scan_processing"                 default="true"/>
+
+  <!-- Worker threads for the nodelet manager -->
+  <arg name="num_worker_threads" default="4" />
+
+  <!-- Laserscan topic -->
+  <arg name="scan_topic" default="scan"/>
+
+  <include file="$(find turtlebot_bringup)/launch/includes/3dsensor/$(arg 3d_sensor).launch.xml">
+    <arg name="camera"                          value="$(arg camera)"/>
+    <arg name="publish_tf"                      value="$(arg publish_tf)"/>
+    <arg name="depth_registration"              value="$(arg depth_registration)"/>
+    <arg name="num_worker_threads"              value="$(arg num_worker_threads)" />
+
+    <!-- Processing Modules -->
+    <arg name="rgb_processing"                  value="$(arg rgb_processing)"/>
+    <arg name="ir_processing"                   value="$(arg ir_processing)"/>
+    <arg name="depth_processing"                value="$(arg depth_processing)"/>
+    <arg name="depth_registered_processing"     value="$(arg depth_registered_processing)"/>
+    <arg name="disparity_processing"            value="$(arg disparity_processing)"/>
+    <arg name="disparity_registered_processing" value="$(arg disparity_registered_processing)"/>
+  </include>
+
+   <!--                        Laserscan 
+     This uses lazy subscribing, so will not activate until scan is requested.
+   -->
+  <group if="$(arg scan_processing)">
+    <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet $(arg camera)/$(arg camera)_nodelet_manager">
+      <!-- Pixel rows to use to generate the laserscan. For each column, the scan will
+           return the minimum value for those pixels centered vertically in the image. -->
+      <param name="scan_height" value="10"/>
+      <param name="output_frame_id" value="/$(arg camera)_depth_frame"/>
+      <param name="range_min" value="0.45"/>
+      <remap from="image" to="$(arg camera)/$(arg depth)/image_raw"/>
+      <remap from="scan" to="$(arg scan_topic)"/>
+
+      <!-- Somehow topics here get prefixed by "$(arg camera)" when not inside an app namespace,
+           so in this case "$(arg scan_topic)" must provide an absolute topic name (issue #88).
+           Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
+      <remap from="$(arg camera)/image" to="$(arg camera)/$(arg depth)/image_raw"/>
+      <remap from="$(arg camera)/scan" to="$(arg scan_topic)"/>
+    </node>
+  </group>
+
+
+  <node name="lidar_transform_publisher"	pkg="tf"	type="static_transform_publisher"	args="0 0 0 3.1415926 0 0 base_link rplidar 100" />
+
+   <!--                        RPLindar  -->
+  <node name="rplidarNode"          pkg="rplidar_ros"  type="rplidarNode" output="screen">
+	  <param name="serial_port"         type="string" value="/dev/ttyUSB1"/>  
+	  <param name="serial_baudrate"     type="int"    value="115200"/>
+	  <param name="frame_id"            type="string" value="rplidar"/>
+	  <param name="inverted"            type="bool"   value="false"/>
+	  <param name="angle_compensate"    type="bool"   value="true"/>
+	  <remap from="scan" to="lidarScan" />
+  </node>
+
+  <node name="slam_gmapping"	pkg="gmapping"	type="slam_gmapping" output="screen" >
+	<remap from="scan" to="lidarScan" />
+  </node>
+
+  <!-- Map server -->
+  <arg name="map_file" default="$(env TURTLEBOT_MAP_FILE)"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- AMCL -->
+  <arg name="custom_amcl_launch_file" default="$(find turtlebot_navigation)/launch/includes/amcl/asus_xtion_pro_amcl.launch.xml"/>
+  <arg name="initial_pose_x" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_y" default="0.0"/> <!-- Use 17.0 for willow's map in simulation -->
+  <arg name="initial_pose_a" default="0.0"/>
+  <include file="$(arg custom_amcl_launch_file)">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+
+  <!-- Move base -->
+  <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/asus_xtion_pro_costmap_params.yaml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml">
+    <arg name="custom_param_file" value="$(arg custom_param_file)"/>
+  </include>
+
+  <param name="/camera/driver/depth_mode" value="8" type="int"/>
+  <param name="/camera/driver/color_mode" value="8" type="int"/>
+  
+  <param name="/navigation_velocity_smoother/speed_lim_v" value="0.3" type="double"/>
+  <param name="/navigation_velocity_smoother/speed_lim_w" value="0.8" type="double"/>
+  <param name="/navigation_velocity_smoother/accel_lim_v" value="1.0" type="double"/>
+  <param name="/navigation_velocity_smoother/accel_lim_w" value="1.0" type="double"/>
+  <param name="/navigation_velocity_smoother/decel_factor" value="1.0" type="double"/>
+  
+  <param name="/move_base/global_costmap/static_layer/enabled" value="false" type="bool"/>
+</launch>

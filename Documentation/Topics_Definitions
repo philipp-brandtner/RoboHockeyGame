@@ -1,0 +1,22 @@
+________________________________________________________________________________
+
+topic name:         "map_allow_movement"
+message type:       bool
+published by:       master_node
+subscribed nodes:   point_catcher_node
+
+description:        '0' -> don't move
+                    '1' -> move
+                    
+________________________________________________________________________________
+
+
+topic name:         "ab_ratio"
+message type:       double
+published by:       point_catcher_node
+subscribed nodes:   master_node
+
+description:        '0' -> ab-ratio not calculated yet
+                    != '0' -> ab-ratio
+
+________________________________________________________________________________

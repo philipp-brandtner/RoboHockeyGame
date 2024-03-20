@@ -1,0 +1,5 @@
+<launch>
+  <node name="PuckDetectionBlue" pkg="gruppe6" type="PuckDetectionBlue"/>
+  <node name="PuckDetectionYellow" pkg="gruppe6" type="PuckDetectionYellow"/>
+  <node name="PoleDetectionGreen" pkg="gruppe6" type="PoleDetectionGreen"/>
+</launch>

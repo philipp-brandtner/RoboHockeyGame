@@ -1,0 +1,11 @@
+std_msgs/Header header
+uint8 count
+geometry_msgs/Point pole_1
+geometry_msgs/Point pole_2
+geometry_msgs/Point pole_3
+geometry_msgs/Point pole_4
+geometry_msgs/Point pole_5
+geometry_msgs/Point pole_6
+geometry_msgs/Point pole_7
+geometry_msgs/Point pole_8
+geometry_msgs/Point pole_9
